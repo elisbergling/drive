@@ -2,14 +2,17 @@
   import Auth from "../screens/Auth.svelte";
   import Icon from "svelte-awesome";
   import { folder, file } from "svelte-awesome/icons";
-  import { path } from "../stores";
+  import { path, currentDoc, docRef } from "../stores";
 
   export let name;
   export let isDoc;
-  //export let ref;
+  export let doc;
+  export let ref;
 
   function onClick() {
     if (isDoc) {
+      currentDoc.update((_) => doc);
+      docRef.update((_) => ref);
     } else {
       path.update((p) => p + `/folders/${name}`);
       console.log(path);
@@ -17,15 +20,17 @@
   }
 </script>
 
-<div class="main" on:click={onClick}>
-  {#if isDoc}
-    <Icon data={file} />
-  {:else}
-    <Icon data={folder} />
-  {/if}
+{#if name != null}
+  <div class="main" on:click={onClick}>
+    {#if isDoc}
+      <Icon data={file} />
+    {:else}
+      <Icon data={folder} />
+    {/if}
 
-  <h5>{name}</h5>
-</div>
+    <h5>{name}</h5>
+  </div>
+{/if}
 
 <style>
   .main {

@@ -1,21 +1,16 @@
 <script>
   import { auth, db, fieldValue } from "../firebase";
   import { Document } from "../models/document";
+
   import { path, derivedPath } from "../stores";
   import { Collection, Doc } from "sveltefire";
   import { uid } from "uid";
   import Card from "../components/Card.svelte";
+  import DocumentView from "../components/DocumentView.svelte";
   import Auth from "./Auth.svelte";
   let user = auth.currentUser;
   let addType = "none";
   let name = "";
-  //let docs = ["hello"];
-  //let doc;
-  //let folders = [];
-
-  function addToPath(folder) {
-    path.update((p) => p + `/${folder}`);
-  }
 
   function removeFromPath() {
     if ($path.split("/").length != 1) {
@@ -53,12 +48,11 @@
   }
 
   function newDocument() {
-    //TODO
     let id = uid(30);
     let ownerUid = auth.currentUser.uid;
     let document = new Document(id, "", false, name, ownerUid);
 
-    db.doc(`users/${user.uid}/${path}/${id}/`).set(document.toJson());
+    db.doc(`users/${user.uid}/${$path}/${id}/`).set(document.toJson());
   }
 
   function signOut() {
@@ -114,11 +108,11 @@
         let:data={docs}
       >
         {#each docs as doc}
-          <Card name={doc.title} isDoc={true} ref={docsRef} />
+          <Card name={doc.title} isDoc={true} ref={docsRef} {doc} />
         {/each}
       </Collection>
     </div>
-    <div id="document">No Document Selected</div>
+    <DocumentView />
   </div>
 </main>
 
