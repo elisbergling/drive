@@ -17,47 +17,57 @@
   }
 </script>
 
-<div id="root">
+<div class="box has-background-primary-light">
   {#if $currentDoc.id != "baba"}
     {#if isEdit}
-      <h1>Title:</h1>
-      <input type="text" placeholder="title" bind:value={$currentDoc.title} />
-      <p>Text:</p>
-      <input type="text" placeholder="text" bind:value={$currentDoc.text} />
-      <div id="isPrivate">
-        <input type="checkbox" bind:checked={$currentDoc.isPrivate} />
-        <p>Is Private: {$currentDoc.isPrivate}</p>
+      <div class="field">
+        <p>Title:</p>
+        <input
+          class="input"
+          type="text"
+          placeholder="title"
+          bind:value={$currentDoc.title}
+        />
+      </div>
+      <div class="field">
+        <p>Text:</p>
+        <textarea
+          class="textarea"
+          type="text"
+          placeholder="text"
+          bind:value={$currentDoc.text}
+        />
       </div>
 
-      <input type="button" value="Save Doc" on:click={onSave} />
-      <input type="button" value="View Doc" on:click={toogleIsEdit} />
+      <label class="checkbox field"
+        ><input type="checkbox" bind:checked={$currentDoc.isPrivate} />
+        Is Private: {$currentDoc.isPrivate}
+      </label>
+      <div class="field">
+        <input
+          class=" button is-primary"
+          type="button"
+          value="Save Doc"
+          on:click={onSave}
+        />
+        <input
+          class=" button is-primary is-outlined"
+          type="button"
+          value="View Doc"
+          on:click={toogleIsEdit}
+        />
+      </div>
     {:else}
-      <h1>Title: {$currentDoc.title}</h1>
+      <p class="title is-3">{$currentDoc.title}</p>
       <p>Text: {$currentDoc.text}</p>
-      <p>Is Private: {$currentDoc.isPrivate}</p>
-      <input type="button" value="Edit Doc" on:click={toogleIsEdit} />
+      <input
+        class=" button is-primary is-outlined mt-3"
+        type="button"
+        value="Edit Doc"
+        on:click={toogleIsEdit}
+      />
     {/if}
   {:else}
     <p>No DOCUEMNT is fuckING selected</p>
   {/if}
 </div>
-
-<style>
-  #root {
-    height: 50vh;
-    width: 20rem;
-    background-color: cornsilk;
-    padding: 1rem;
-    border-radius: 1rem;
-    border: 0.2rem solid black;
-    margin: 1rem;
-  }
-  p {
-    font-size: medium;
-  }
-
-  #isPrivate {
-    flex-direction: row;
-    display: flex;
-  }
-</style>

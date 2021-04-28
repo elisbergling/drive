@@ -1,7 +1,7 @@
 <script>
+  import "bulma/css/bulma.css";
   import { auth, db, fieldValue } from "../firebase";
   import { Document } from "../models/document";
-
   import { path, derivedPath } from "../stores";
   import { Collection, Doc } from "sveltefire";
   import { uid } from "uid";
@@ -61,83 +61,108 @@
 </script>
 
 <main>
-  <header>
-    <h1>Home</h1>
-    <p>{user.uid + " " + user.email}</p>
-    <input type="button" on:click={signOut} value="Sign Out" />
-  </header>
-  <div id="content">
-    <div id="first">
+  <nav class="navbar has-background-primary">
+    <div class="navbar-brand navbar-item">
+      <p class="title is-3 has-text-weight-bold">Home</p>
+    </div>
+    <div class="navbar-menu navbar-end navbar-item">
       <input
+        class="button "
         type="button"
-        value="New Folder"
-        on:click={() => (addType = "folder name")}
+        on:click={signOut}
+        value="Sign Out"
       />
-      <input
-        type="button"
-        value="New Document"
-        on:click={() => (addType = "document name")}
-      />
-      <input type="button" value="Close" on:click={() => (addType = "none")} />
+    </div>
+  </nav>
+  <div class="columns mx-6 my-6">
+    <div class="column is-narrow">
+      <div class="columns">
+        <div class="column is-narrow">
+          <input
+            class=" button"
+            type="button"
+            value="New Folder"
+            on:click={() => (addType = "folder name")}
+          />
+        </div>
+        <div class="column is-narrow">
+          <input
+            class=" button"
+            type="button"
+            value="New Document"
+            on:click={() => (addType = "document name")}
+          />
+        </div>
+        <div class="column is-narrow">
+          <input
+            class="button is-light"
+            type="button"
+            value="Close"
+            on:click={() => (addType = "none")}
+          />
+        </div>
+      </div>
+
       {#if addType != "none"}
-        <div id="add">
-          <input type="text" bind:value={name} placeholder={addType} />
-          <input type="button" value="Create" on:click={add} />
+        <div class="columns">
+          <div class="column">
+            <input
+              class="input"
+              type="text"
+              bind:value={name}
+              placeholder={addType}
+            />
+          </div>
+          <div class="column is-narrow">
+            <input
+              class="button is-primary"
+              type="button"
+              value="Create"
+              on:click={add}
+            />
+          </div>
         </div>
       {/if}
     </div>
-    <input type="button" value="Back" on:click={removeFromPath} />
-    <p>path: {$derivedPath}</p>
-    <div id="folders">
-      <p>folders:</p>
-      <Doc
-        path={`users/${user.uid}/${$path}/folders/`}
-        let:ref={foldersRef}
-        let:data={folders}
-      >
-        {#each folders["folders"] as folder}
-          <Card name={folder} isDoc={false} ref={foldersRef} />
-        {/each}
-      </Doc>
+    <div class="column is-narrow">
+      <input
+        class=" button"
+        type="button"
+        value="Back"
+        on:click={removeFromPath}
+      />
+      <p><strong>path:</strong> {$derivedPath}</p>
     </div>
-    <div id="documents">
-      <p>documents:</p>
-      <Collection
-        path={`users/${user.uid}/${$path}/`}
-        let:ref={docsRef}
-        let:data={docs}
-      >
-        {#each docs as doc}
-          <Card name={doc.title} isDoc={true} ref={docsRef} {doc} />
-        {/each}
-      </Collection>
+    <div class="column">
+      <div id="folders">
+        <p>folders:</p>
+        <Doc
+          path={`users/${user.uid}/${$path}/folders/`}
+          let:ref={foldersRef}
+          let:data={folders}
+        >
+          {#each folders["folders"] as folder}
+            <Card name={folder} isDoc={false} ref={foldersRef} />
+          {/each}
+        </Doc>
+      </div>
     </div>
-    <DocumentView />
+    <div class="column">
+      <div id="documents">
+        <p>documents:</p>
+        <Collection
+          path={`users/${user.uid}/${$path}/`}
+          let:ref={docsRef}
+          let:data={docs}
+        >
+          {#each docs as doc}
+            <Card name={doc.title} isDoc={true} ref={docsRef} {doc} />
+          {/each}
+        </Collection>
+      </div>
+    </div>
+    <div class="column">
+      <DocumentView />
+    </div>
   </div>
 </main>
-
-<style>
-  main {
-    padding: 0;
-    margin: 0;
-  }
-  header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: antiquewhite;
-    padding: 1rem;
-  }
-
-  #content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
-
-  #add {
-    display: flex;
-    flex-direction: row;
-  }
-</style>

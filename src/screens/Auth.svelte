@@ -43,55 +43,66 @@
   }
 </script>
 
-<main>
-  <div id="authCard" transistion:fade>
-    <p>Welcome to BABA Drive</p>
-    {#if isSignUp}
-      <input type="text" bind:value={name} placeholder="name" />
-      <input type="text" bind:value={username} placeholder="username" />
-    {/if}
-    <input type="email" bind:value={email} placeholder="email" />
-    <input type="password" bind:value={password} placeholder="password" />
-    <input type="button" value={shouldSignUpText} on:click={authMethod} />
+<div class="columns is-centered">
+  <div class="column is-narrow">
+    <div class="row is-half">
+      <div class="box has-background-primary-light mx-6 my-6">
+        <p class="title is-3">Welcome to BABA Drive</p>
+        {#if isSignUp}
+          <div class="field">
+            <input
+              class="input"
+              type="text"
+              bind:value={name}
+              placeholder="name"
+            />
+          </div>
+          <div class="field">
+            <input
+              class="input"
+              type="text"
+              bind:value={username}
+              placeholder="username"
+            />
+          </div>
+        {/if}
+        <div class="field">
+          <input
+            class="input"
+            type="email"
+            bind:value={email}
+            placeholder="email"
+          />
+        </div>
+        <div class="field">
+          <input
+            class="input"
+            type="password"
+            bind:value={password}
+            placeholder="password"
+          />
+        </div>
+
+        <input
+          class="button is-primary"
+          type="button"
+          value={shouldSignUpText}
+          on:click={authMethod}
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns is-vcentered mx-6 my-6">
+        <div class="column">{shouldSwitchAuthText}</div>
+        <div class="column is-narrow">
+          <input
+            class="button is-primary is-outlined"
+            type="button"
+            value={shouldSwitchAuthButtonText}
+            on:click={toggleIsSignUp}
+          />
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="shouldSignUp">
-    <p>{shouldSwitchAuthText}</p>
-    <input
-      type="button"
-      value={shouldSwitchAuthButtonText}
-      on:click={toggleIsSignUp}
-    />
-  </div>
-</main>
-
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-  }
-
-  input[type="button"] {
-    background-color: aquamarine;
-  }
-  input[type="button"]:hover {
-    background-color: cornflowerblue;
-  }
-
-  #authCard {
-    display: flex;
-    flex-direction: column;
-    background-color: bisque;
-    padding: 3rem;
-    margin: 5rem;
-    border-radius: 1rem;
-  }
-
-  #shouldSignUp {
-    display: flex;
-    flex-direction: row;
-  }
-</style>
+</div>

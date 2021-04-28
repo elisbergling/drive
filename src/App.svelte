@@ -1,4 +1,5 @@
 <script>
+  import "bulma/css/bulma.css";
   import Auth from "./screens/Auth.svelte";
   import Home from "./screens/Home.svelte";
   import { auth } from "./firebase";

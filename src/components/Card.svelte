@@ -21,35 +21,15 @@
 </script>
 
 {#if name != null}
-  <div class="main" on:click={onClick}>
-    {#if isDoc}
-      <Icon data={file} />
-    {:else}
-      <Icon data={folder} />
-    {/if}
+  <div class="block">
+    <div class="button is-primary " on:click={onClick}>
+      {#if isDoc}
+        <Icon data={file} />
+      {:else}
+        <Icon data={folder} />
+      {/if}
 
-    <h5>{name}</h5>
+      <p class="title is-6 ">__{name}</p>
+    </div>
   </div>
 {/if}
-
-<style>
-  .main {
-    display: flex;
-    padding-left: 0;
-    padding-bottom: 0;
-    padding-right: 0.2rem;
-    padding-left: 0.2rem;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 0.5rem;
-    border: 0.2rem solid black;
-
-    border-radius: 1rem;
-    transition: 300ms;
-  }
-
-  .main:hover {
-    background-color: beige;
-  }
-</style>
