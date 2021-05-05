@@ -1,5 +1,4 @@
 <script>
-  import Auth from "../screens/Auth.svelte";
   import Icon from "svelte-awesome";
   import { folder, file } from "svelte-awesome/icons";
   import { path, currentDoc, docRef } from "../stores";
@@ -24,12 +23,11 @@
   <div class="block">
     <div class="button is-primary " on:click={onClick}>
       {#if isDoc}
-        <Icon data={file} />
+        <Icon class="mr-2" data={file} />
       {:else}
-        <Icon data={folder} />
+        <Icon class="mr-2" data={folder} />
       {/if}
-
-      <p class="title is-6 ">__{name}</p>
+      <p class="title is-6 ">{name}</p>
     </div>
   </div>
 {/if}

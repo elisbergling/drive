@@ -4,6 +4,9 @@
   import PathView from "../components/PathView.svelte";
   import FolderNavigation from "../components/FolderNavigation.svelte";
   import DocumentView from "../components/DocumentView.svelte";
+  import FriendsView from "../components/FriendsView.svelte";
+  import AddFriend from "../components/AddFriend.svelte";
+  import FriendRequests from "../components/FriendRequests.svelte";
 
   function signOut() {
     auth.signOut();
@@ -26,12 +29,17 @@
   </nav>
   <div class="columns mx-6 my-6">
     <div class="column" />
-    <div class="column is-one-third">
+    <div class="column is-narrow">
+      <FriendsView />
+      <AddFriend />
+      <FriendRequests />
+    </div>
+    <div class="column is-narrow">
       <AddItemView />
       <PathView />
       <FolderNavigation />
     </div>
-    <div class="column is-one-third">
+    <div class="column is-narrow">
       <DocumentView />
     </div>
     <div class="column" />
