@@ -1,7 +1,7 @@
 <script>
   import { path, derivedPath } from "../stores";
   function removeFromPath() {
-    if ($path.split("/").length != 1) {
+    if ($path.split("/").length != 2) {
       path.update((p) => {
         let ar = p.split("/");
         ar.pop();

@@ -18,7 +18,7 @@
   }
 
   function newFolder() {
-    let foldersDocRef = db.doc(`users/${user.uid}/${$path}/folders`);
+    let foldersDocRef = db.doc(`users/${$path}/folders`);
     let data = {
       folders: fieldValue.arrayUnion(name),
     };
@@ -36,7 +36,7 @@
     let ownerUid = auth.currentUser.uid;
     let document = new Document(id, "", false, name, ownerUid);
 
-    db.doc(`users/${user.uid}/${$path}/${id}/`).set(document.toJson());
+    db.doc(`users/${$path}/${id}/`).set(document.toJson());
   }
 </script>
 

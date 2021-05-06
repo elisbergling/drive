@@ -1,7 +1,6 @@
 <script>
   import { currentDoc, path, docRef } from "../stores";
   import { db, auth } from "../firebase";
-  import { Document } from "../models/document";
   let user = auth.currentUser;
   let isEdit = false;
   function onSave() {

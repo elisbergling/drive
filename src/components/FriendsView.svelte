@@ -1,14 +1,18 @@
 <script>
+  import { auth } from "../firebase";
   import { Collection } from "sveltefire";
-  import Card from "../components/Card.svelte";
+  import FriendCard from "../components/FriendCard.svelte";
+
+  let query = (ref) =>
+    ref.where("friendsUids", "array-contains", auth.currentUser.uid);
 </script>
 
 <div class="box has-background-primary-light">
-  <p>Friends</p>
+  <p class="has-text-weight-bold">Friends</p>
 
-  <!-- <Collection path={`users/`} let:ref={docsRef} let:data={docs}>
-    {#each docs as doc}
-      <Card name={doc.title} isDoc={true} ref={docsRef} {doc} />
+  <Collection path={`users/`} {query} let:ref let:data={users}>
+    {#each users as user}
+      <FriendCard {user} isFriends={true} />
     {/each}
-  </Collection> -->
+  </Collection>
 </div>
