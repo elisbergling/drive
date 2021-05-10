@@ -11,8 +11,10 @@ export let currentUsername = writable("waiting");
 
 export let derivedPath = derived([path, currentUsername], ($data) => {
   let ar = $data[0].split("/");
-  ar.splice(0, 1);
+  ar.splice(0, 2);
   ar.unshift($data[1]);
 
   return ar.filter((name) => name != "folders").join("/");
 });
+
+export let isEdit = writable(false);

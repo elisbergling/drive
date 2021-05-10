@@ -14,7 +14,7 @@
   let ref = db.doc(`users/${user.uid}/`);
 
   function onClick() {
-    if (isAdd || isRequest) {
+    if ((isAdd || isRequest) && !user.friendsUids.includes(uid)) {
       if (user.friendsUids.includes(uid)) {
         return;
       } else {
@@ -34,24 +34,38 @@
           });
         }
       }
-    } else if (isFriends) {
-      path.update((p) => {
-        let ar = p.split("/");
-        ar.splice(0, 1);
-        ar.unshift(user.uid);
-        return ar.join("/");
-      });
+    } else if (isFriends || user.friendsUids.includes(uid)) {
+      path.set(`${user.uid}/drive`);
       currentUsername.set(user.username);
+    }
+  }
+
+  function del() {
+    if (isAdd) {
+      myRef.update({
+        friendsUids: fieldValue.arrayRemove(user.uid),
+      });
+      ref.update({
+        friendsUids: fieldValue.arrayRemove(uid),
+      });
+    } else if (isRequest) {
+      ref.update({
+        requestUids: fieldValue.arrayRemove(uid),
+      });
     }
   }
 </script>
 
-<div>
+<div class="is-flex is-flex-direction-row is-align-items-center">
   <button class="button is-primary my-2" on:click={onClick}>
     <p class="has-text-weight-bold pr-3">{user.name}</p>
     <p>{user.username}</p>
-    {#if !isFriends}
+
+    {#if !isFriends && (!user.friendsUids.includes(uid) || isRequest)}
       <Icon class="ml-2" data={userPlus} />
     {/if}
   </button>
+  {#if user.friendsUids.includes(uid) || isRequest}
+    <button class="delete ml-2" on:click={del} />
+  {/if}
 </div>

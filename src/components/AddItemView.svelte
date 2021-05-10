@@ -40,52 +40,54 @@
   }
 </script>
 
-<div class="box has-background-primary-light">
-  <div class="columns">
-    <div class="column is-narrow">
-      <input
-        class=" button"
-        type="button"
-        value="New Folder"
-        on:click={() => (addType = "folder name")}
-      />
-    </div>
-    <div class="column is-narrow">
-      <input
-        class=" button"
-        type="button"
-        value="New Document"
-        on:click={() => (addType = "document name")}
-      />
-    </div>
-    <div class="column is-narrow">
-      <input
-        class="button is-light"
-        type="button"
-        value="Close"
-        on:click={() => (addType = "none")}
-      />
-    </div>
-  </div>
-
-  {#if addType != "none"}
+{#if $path.split("/")[0] == user.uid}
+  <div class="box has-background-primary-light">
     <div class="columns">
-      <div class="column">
+      <div class="column is-narrow">
         <input
-          class="input"
-          type="text"
-          bind:value={name}
-          placeholder={addType}
+          class=" button is-primary is-outlined"
+          type="button"
+          value="New Folder"
+          on:click={() => (addType = "folder name")}
         />
       </div>
       <div class="column is-narrow">
         <input
-          class="button is-primary"
+          class=" button is-primary is-outlined"
           type="button"
-          value="Create"
-          on:click={add}
+          value="New Document"
+          on:click={() => (addType = "document name")}
+        />
+      </div>
+      <div class="column is-narrow">
+        <input
+          class="button is-link is-light"
+          type="button"
+          value="Close"
+          on:click={() => (addType = "none")}
         />
       </div>
     </div>
-  {/if}
-</div>
+
+    {#if addType != "none"}
+      <div class="columns is-mobile">
+        <div class="column">
+          <input
+            class="input"
+            type="text"
+            bind:value={name}
+            placeholder={addType}
+          />
+        </div>
+        <div class="column is-narrow">
+          <input
+            class="button is-primary"
+            type="button"
+            value="Create"
+            on:click={add}
+          />
+        </div>
+      </div>
+    {/if}
+  </div>
+{/if}

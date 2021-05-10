@@ -14,21 +14,24 @@
 </script>
 
 <main>
-  <nav class="navbar has-background-primary">
+  <nav class="navbar has-background-primary-light">
     <div class="navbar-brand navbar-item">
-      <p class="title is-3 has-text-weight-bold">BABA drive</p>
+      <p class="title is-3 has-text-weight-bold">Baba Drive</p>
     </div>
-    <div class="navbar-menu navbar-end navbar-item">
-      <input
-        class="button "
-        type="button"
-        on:click={signOut}
-        value="Sign Out"
-      />
+    <div class="navbar-menu ">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <input
+            class="button is-primary"
+            type="button"
+            on:click={signOut}
+            value="Sign Out"
+          />
+        </div>
+      </div>
     </div>
   </nav>
-  <div class="columns mx-6 my-6">
-    <div class="column" />
+  <div class="columns is-desktop mx-2 my-6 is-centered">
     <div class="column is-narrow">
       <FriendsView />
       <AddFriend />
@@ -42,6 +45,5 @@
     <div class="column is-narrow">
       <DocumentView />
     </div>
-    <div class="column" />
   </div>
 </main>

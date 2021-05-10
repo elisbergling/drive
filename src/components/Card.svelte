@@ -1,7 +1,7 @@
 <script>
   import Icon from "svelte-awesome";
   import { folder, file } from "svelte-awesome/icons";
-  import { path, currentDoc, docRef } from "../stores";
+  import { path, currentDoc, docRef, isEdit } from "../stores";
 
   export let name;
   export let isDoc;
@@ -10,8 +10,9 @@
 
   function onClick() {
     if (isDoc) {
-      currentDoc.update((_) => doc);
-      docRef.update((_) => ref);
+      currentDoc.set(doc);
+      docRef.set(ref);
+      isEdit.set(false);
     } else {
       path.update((p) => p + `/folders/${name}`);
       console.log(path);
@@ -27,7 +28,7 @@
       {:else}
         <Icon class="mr-2" data={folder} />
       {/if}
-      <p class="title is-6 ">{name}</p>
+      <p class="has-text-weight-bold">{name}</p>
     </div>
   </div>
 {/if}

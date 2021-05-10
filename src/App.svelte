@@ -6,6 +6,7 @@
   import { path, currentUsername } from "./stores";
   import firebase from "firebase/app";
   let isSignedIn;
+  let isWaiting = true;
 
   auth.onAuthStateChanged((user) => {
     isSignedIn = user;
@@ -13,13 +14,18 @@
     db.doc(`users/${user.uid}`)
       .get()
       .then((doc) => currentUsername.set(doc.data().username));
+    isWaiting = false;
   });
 </script>
 
 <FirebaseApp {firebase}>
-  {#if isSignedIn}
-    <Home />
+  {#if !isWaiting}
+    {#if isSignedIn}
+      <Home />
+    {:else}
+      <Auth />
+    {/if}
   {:else}
-    <Auth />
+    <div class="control is-loading is-large is-centered" />
   {/if}
 </FirebaseApp>

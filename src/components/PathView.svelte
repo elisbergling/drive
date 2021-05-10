@@ -14,10 +14,10 @@
 </script>
 
 <div class="box has-background-primary-light">
-  <div class="columns is-align-items-center">
+  <div class="columns is-mobile is-align-items-center">
     <div class="column is-narrow">
       <input
-        class="button"
+        class="button is-info is-light"
         type="button"
         value="Back"
         on:click={removeFromPath}

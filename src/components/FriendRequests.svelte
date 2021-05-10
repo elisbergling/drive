@@ -8,9 +8,8 @@
 </script>
 
 <div class="box has-background-primary-light">
-  <p class="has-text-weight-bold">Friend Requests</p>
-
   <Collection path={`users/`} {query} let:ref let:data={users}>
+    <p class="has-text-weight-bold">Friend Requests({users.length})</p>
     {#each users as user}
       <FriendCard {user} isRequest={true} />
     {/each}

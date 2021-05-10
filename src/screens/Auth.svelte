@@ -1,7 +1,6 @@
 <script>
   import { auth, db } from "../firebase";
   import { User } from "../models/user";
-  import { fade } from "svelte/transition";
   let name = "";
   let username = "";
   let email = "";
