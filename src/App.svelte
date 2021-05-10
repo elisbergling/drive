@@ -10,10 +10,12 @@
 
   auth.onAuthStateChanged((user) => {
     isSignedIn = user;
-    path.set(`${user.uid}/drive`);
-    db.doc(`users/${user.uid}`)
-      .get()
-      .then((doc) => currentUsername.set(doc.data().username));
+    if (isSignedIn != null) {
+      path.set(`${user.uid}/drive`);
+      db.doc(`users/${user.uid}`)
+        .get()
+        .then((doc) => currentUsername.set(doc.data().username));
+    }
     isWaiting = false;
   });
 </script>
