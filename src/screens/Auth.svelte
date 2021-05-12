@@ -46,7 +46,7 @@
   <div class="column is-narrow">
     <div class="row is-half">
       <div class="box has-background-primary-light mx-6 my-6">
-        <p class="title is-3">Welcome to BABA Drive</p>
+        <p class="title is-3">Welcome to Baba Drive</p>
         {#if isSignUp}
           <div class="field">
             <input
