@@ -1,6 +1,8 @@
 <script>
   import { auth, db } from "../firebase";
   import { User } from "../models/user";
+  let isLoading = false;
+  let error = "";
   let name = "";
   let username = "";
   let email = "";
@@ -12,18 +14,34 @@
   let authMethod = signUp;
 
   function logIn() {
-    auth.signInWithEmailAndPassword(email, password);
+    isLoading = true;
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((_) => {
+        isLoading = false;
+        error = "";
+      })
+      .catch((e) => {
+        error = e;
+        isLoading = false;
+      });
   }
 
   function signUp() {
+    isLoading = true;
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((user) =>
-        db
-          .collection("users")
+      .then((user) => {
+        db.collection("users")
           .doc(user.user.uid)
-          .set(new User(user.user.uid, name, username, email, [], []).toJson())
-      );
+          .set(new User(user.user.uid, name, username, email, [], []).toJson());
+        isLoading = false;
+        error = "";
+      })
+      .catch((e) => {
+        error = e;
+        isLoading = false;
+      });
   }
 
   function toggleIsSignUp() {
@@ -81,13 +99,17 @@
             placeholder="password"
           />
         </div>
-
-        <input
-          class="button is-primary"
-          type="button"
-          value={shouldSignUpText}
-          on:click={authMethod}
-        />
+        <p class="mb-2 has-text-danger">{error}</p>
+        {#if isLoading}
+          <button class="button is-primary is-loading">Loading </button>
+        {:else}
+          <input
+            class="button is-primary"
+            type="button"
+            value={shouldSignUpText}
+            on:click={authMethod}
+          />
+        {/if}
       </div>
     </div>
     <div class="row">

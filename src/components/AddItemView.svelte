@@ -6,8 +6,13 @@
   let user = auth.currentUser;
   let addType = "none";
   let name = "";
+  let error = "";
 
   function add() {
+    if (name == "") {
+      error = "The name cannot be empty";
+      return;
+    }
     if (addType == "folder name") {
       newFolder();
     } else if (addType == "document name") {
@@ -15,6 +20,7 @@
     }
     name = "";
     addType = "none";
+    error = "";
   }
 
   function newFolder() {
@@ -88,6 +94,9 @@
           />
         </div>
       </div>
+    {/if}
+    {#if error != ""}
+      <p class="has-text-danger">{error}</p>
     {/if}
   </div>
 {/if}

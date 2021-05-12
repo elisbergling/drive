@@ -22,7 +22,7 @@
     placeholder="Search by username..."
   />
   <Collection path={`users/`} {query} let:ref let:data={users}>
-    {#each users as user}
+    {#each users as user (user.uid)}
       <FriendCard {user} isAdd={true} />
     {/each}
   </Collection>

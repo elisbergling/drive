@@ -10,7 +10,7 @@
 <div class="box has-background-primary-light">
   <Collection path={`users/`} {query} let:ref let:data={users}>
     <p class="has-text-weight-bold">Friend Requests({users.length})</p>
-    {#each users as user}
+    {#each users as user (user.uid)}
       <FriendCard {user} isRequest={true} />
     {/each}
   </Collection>
