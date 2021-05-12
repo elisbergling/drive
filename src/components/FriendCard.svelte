@@ -41,7 +41,7 @@
   }
 
   function del() {
-    if (isAdd) {
+    if (isAdd || isFriends) {
       myRef.update({
         friendsUids: fieldValue.arrayRemove(user.uid),
       });

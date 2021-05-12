@@ -3,7 +3,7 @@ import { Document } from "./models/document";
 
 export let path = writable();
 
-export let currentDoc = writable(new Document("baba", "", false, "", ""));
+export let currentDoc = writable(new Document("", "", false, "", ""));
 
 export let docRef = writable();
 
